@@ -1,16 +1,17 @@
-import { lazy } from "react";
-import { createBrowserRouter, Outlet } from "react-router";
-import { RouterProvider } from "react-router/dom";
-import { Auth } from "../modules/auth";
+import { lazy } from 'react'
+import { createBrowserRouter, Outlet } from 'react-router'
+import { RouterProvider } from 'react-router/dom'
+import { Auth } from '../modules/auth'
 
-const LazyHomePage = lazy(() => import("../pages/home/Home"));
-const LazyLoginPage = lazy(() => import("../pages/login/Login"));
-const LazyDashboardPage = lazy(() => import("../pages/dashboard/Dashboard"));
-const LazyPlaygroundPage = lazy(() => import("../pages/playground/Playground"));
+const LazyHomePage = lazy(() => import('../pages/home/Home'))
+const LazyLoginPage = lazy(() => import('../pages/login/Login'))
+const LazyDashboardPage = lazy(() => import('../pages/dashboard/Dashboard'))
+const LazyProjectPage = lazy(() => import('../pages/project/Project'))
+const LazyPlaygroundPage = lazy(() => import('../pages/playground/Playground'))
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     Component: Outlet,
     children: [
       {
@@ -18,11 +19,11 @@ const router = createBrowserRouter([
         Component: LazyHomePage,
       },
       {
-        path: "login",
+        path: 'login',
         Component: LazyLoginPage,
       },
       {
-        path: "playground",
+        path: 'playground',
         Component: LazyPlaygroundPage,
       },
       {
@@ -33,19 +34,23 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            path: "dashboard",
+            path: 'dashboard',
             Component: LazyDashboardPage,
+          },
+          {
+            path: 'project/:id',
+            Component: LazyProjectPage,
           },
         ],
       },
       {
-        path: "*",
-        element: "404",
+        path: '*',
+        element: '404',
       },
     ],
   },
-]);
+])
 
 export const Router = () => {
-  return <RouterProvider router={router} />;
-};
+  return <RouterProvider router={router} />
+}

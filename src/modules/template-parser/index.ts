@@ -1,2 +1,2 @@
 // @ts-ignore
-export { default as mustache } from "./mustache"
+export { default as mustache } from './mustache'

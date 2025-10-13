@@ -1,32 +1,32 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface AuthState {
-  token: string;
-  updateToken: (value: string) => void;
-  removeToken: () => void;
+  token: string
+  updateToken: (value: string) => void
+  removeToken: () => void
 }
 
-const name = "auth";
+const name = 'auth'
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
-      token: "",
+      token: '',
 
       updateToken(value) {
         set({
           token: value,
-        });
+        })
       },
       removeToken() {
-        const { updateToken } = get();
+        const { updateToken } = get()
 
-        updateToken("");
+        updateToken('')
       },
     }),
     {
       name,
     },
   ),
-);
+)

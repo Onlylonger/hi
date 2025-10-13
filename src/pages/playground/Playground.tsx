@@ -1,5 +1,5 @@
-import { useForm, type SubmitHandler } from "react-hook-form"
-import Button from "../../components/button"
+import { Button } from '@shilong/react'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 
 type Inputs = {
   example: string
@@ -16,21 +16,21 @@ export default function PlaygroundPage() {
   const handleRun: SubmitHandler<Inputs> = (data) => {
     console.log(data)
     const requestData = {
-      url: "http://echo.apifox.com/{{url-var}}",
+      url: 'http://echo.apifox.com/{{url-var}}',
       // url: "http://echo.apifox.com/anything",
       querySearchParams: {
         //
-        name: "ceshi",
+        name: 'ceshi',
         nameWithVariable: `{{name-var}}-h`,
       },
       body: {
-        contentType: "",
-        content: "",
+        contentType: '',
+        content: '',
       },
       headers: {},
     }
     const view = {
-      title: "Joe",
+      title: 'Joe',
       calc: () => 2 + 4,
     }
 
@@ -44,12 +44,12 @@ export default function PlaygroundPage() {
       <form onSubmit={handleSubmit(handleRun)}>
         <input
           type="text"
-          defaultValue={"http://echo.apifox.com/anything"}
+          defaultValue={'http://echo.apifox.com/anything'}
           className="w-full"
-          {...register("example")}
+          {...register('example')}
         />
         {/* include validation with required or other standard HTML validation rules */}
-        <input {...register("exampleRequired", { required: true })} />
+        <input {...register('exampleRequired', { required: true })} />
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
         <button type="submit">Run</button>
