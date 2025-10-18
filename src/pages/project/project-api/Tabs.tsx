@@ -1,17 +1,19 @@
 import { Button } from '@shilong/react'
 import { useProjectApiContentContext } from './ProjectApiContentContext'
+import clsx from 'clsx'
 
 const Tabs = () => {
-  const { selectedIds } = useProjectApiContentContext()
+  const { tabsList, activeTabId } = useProjectApiContentContext()
 
   return (
     <div className="flex">
-      {selectedIds.map((id) => (
+      {tabsList.map((tab) => (
         <Button
-          variant={selectedIds.includes(id) ? 'default' : 'ghost'}
-          key={id}
+          variant={activeTabId === tab.id ? 'outline' : 'ghost'}
+          className={clsx(!tab.fixed && '!italic')}
+          key={tab.id}
         >
-          Tab {id}
+          {tab.label}
         </Button>
       ))}
     </div>

@@ -3,26 +3,38 @@ import { useLorem } from './useLorem'
 import { useMemo } from 'react'
 import { useProjectApiContentContext } from '../ProjectApiContentContext'
 import clsx from 'clsx'
+import { createTab } from './const'
 
 const MainRowComponent = (props: RowComponentProps<{}>) => {
-  const { style, index } = props
+  const { style, index, lorem } = props
 
-  const projectApiContentContext = useProjectApiContentContext()
-  console.log(props)
+  const { selectedIds, updateSelectedIds, addTabWithCaseCheck } =
+    useProjectApiContentContext()
+  // console.log(props)
 
-  const handleClickRow = () => {
-    projectApiContentContext.addSelectAndTab(index)
+  // 双击前，会执行2次单击，然后是双击回调函数。我们需要确认如果之前已经打开的tab是固定的话，就不需要再改动了。
+  const handleClickRow = (fixed = false) => {
+    updateSelectedIds(index)
+    addTabWithCaseCheck(
+      createTab({
+        label: 'ceshi' + index,
+        asideMeta: {
+          id: String(index),
+        },
+        fixed,
+      }),
+    )
   }
 
   return (
     <div
       style={style}
       className={clsx(
-        projectApiContentContext.selectedIds.includes(String(index)) &&
-          'bg-neutral-100',
+        selectedIds.includes(String(index)) && 'bg-neutral-100',
         'cursor-pointer hover:bg-neutral-100',
       )}
       onClick={() => handleClickRow()}
+      onDoubleClick={() => handleClickRow(true)}
     >
       Row
     </div>
@@ -47,7 +59,7 @@ const Tree = (props: { filterValue?: string }) => {
       rowComponent={MainRowComponent}
       rowCount={lorem.length}
       rowHeight={rowHeight}
-      rowProps={{ demo: 1 }}
+      rowProps={{ lorem }}
     />
   )
 }

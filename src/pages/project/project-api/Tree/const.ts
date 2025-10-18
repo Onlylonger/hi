@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid'
+
 const NodeType = {
   Folder: 'folder',
   Root: 'root',
@@ -46,3 +48,21 @@ const treeExampleData = [
     ],
   },
 ]
+
+export const createTab = (params: {
+  label: string
+  fixed?: boolean
+  asideMeta?: {
+    id?: string
+    [key: string]: any
+  }
+}) => {
+  const { label, asideMeta, fixed = false } = params ?? {}
+
+  return {
+    id: nanoid(),
+    label,
+    asideMeta,
+    fixed,
+  }
+}
