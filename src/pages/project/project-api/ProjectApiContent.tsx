@@ -1,16 +1,21 @@
 import { Input } from '@shilong/react'
 import { ProjectApiContentAside } from './ProjectApiContentAside'
+import { ProjectApiContentContextProvider } from './ProjectApiContentContext'
+import { Tabs } from './Tabs'
 
 const ProjectApiContent = () => {
   return (
     <div className="flex h-full min-h-0">
-      <ProjectApiContentAside />
-      <div>
-        API Contentcc2
+      <ProjectApiContentContextProvider>
+        <ProjectApiContentAside />
         <div>
-          <Input />
+          <Tabs />
+          <div>
+            API Contentcc2
+            <Input />
+          </div>
         </div>
-      </div>
+      </ProjectApiContentContextProvider>
     </div>
   )
 }

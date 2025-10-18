@@ -1,7 +1,7 @@
 import { HorizontalDragBlock } from '../HorizontalDragBlock'
 import { Input } from '@shilong/react'
 import { useProjectContentConfigStore } from '../project-content-config-store'
-import { Tree } from './Tree/Example'
+import { Tree } from './Tree/Tree'
 import { useDeferredValue, useState } from 'react'
 
 export const ProjectApiContentAside = () => {
