@@ -1,8 +1,9 @@
 import { HorizontalDragBlock } from '../HorizontalDragBlock'
-import { Input } from '@shilong/react'
+import { Button, Input, Popover } from '@shilong/react'
 import { useProjectContentConfigStore } from '../project-content-config-store'
 import { Tree } from './Tree/Tree'
 import { useDeferredValue, useState } from 'react'
+import { Plus } from 'lucide-react'
 
 export const ProjectApiContentAside = () => {
   const sideWidth = useProjectContentConfigStore((state) => state.sideWidth)
@@ -19,11 +20,27 @@ export const ProjectApiContentAside = () => {
       style={{ width: `${sideWidth}px` }}
     >
       <div className="flex h-full flex-col px-2 py-1">
-        <div className="h-[100px] shrink-0">
+        <div className="flex h-[100px] shrink-0 justify-between gap-2">
           <Input
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
+          <Popover
+            trigger={
+              <Button variant="outline">
+                <Plus />
+              </Button>
+            }
+            hover
+            offsetHeight={5}
+            placement="bottom-end"
+          >
+            <div className="w-[270px] rounded-md border border-neutral-100 bg-white p-1 shadow-md">
+              <Button className="w-full" variant="ghost" onClick={() => {}}>
+                <Plus /> <span>New Module</span>
+              </Button>
+            </div>
+          </Popover>
         </div>
         <div className="flex-1 overflow-y-auto pb-5">
           <Tree filterValue={deferSearchValue} />

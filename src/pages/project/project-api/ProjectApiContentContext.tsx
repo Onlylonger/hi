@@ -12,10 +12,28 @@ export const ProjectApiContentContextProvider: React.FC<
   const { children, multi = false } = props
 
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const [tabsList, setTabsList] = useState<any[]>([])
+  const [activeTabId, setActiveTabId] = useState<string | null>()
 
   const contextValue = useMemo(() => {
-    return {
+    const tmp = {
       selectedIds,
+      activeTabId,
+      tabsList,
+      updateSelectedIds(ids: string[]) {
+        setSelectedIds(ids)
+      },
+      updateActiveTabId(id: string) {
+        setActiveTabId(id)
+      },
+      addTab(id: string) {
+        if (tabsList.find((tab) => tab.id === id)) {
+          tmp.updateActiveTabId(id)
+          return
+        }
+
+        setTabsList((pre) => [...pre, id])
+      },
       addSelectAndTab(index: number) {
         const strIndex = String(index)
         if (selectedIds.includes(strIndex)) return
@@ -23,7 +41,18 @@ export const ProjectApiContentContextProvider: React.FC<
         setSelectedIds((pre) => (multi ? [...pre, strIndex] : [strIndex]))
         //
       },
+      addNewModule() {
+        // TODO: 新增模块
+      },
+      addFolder() {
+        // TODO: 新增目录
+      },
+      addEndpoint() {
+        // TODO: 新增接口
+      },
     }
+
+    return tmp
   }, [selectedIds, multi])
 
   return (
