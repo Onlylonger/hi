@@ -5,10 +5,10 @@ import { ProjectApiContentMain } from './ProjectApiContentMain'
 
 const ProjectApiContent = () => {
   return (
-    <div className="flex h-full min-h-0 w-full">
+    <div className="flex h-full w-full">
       <ProjectApiContentContextProvider>
         <ProjectApiContentAside />
-        <div className="min-w-0 flex-1">
+        <div className="flex-1 overflow-hidden">
           <Tabs />
           <ProjectApiContentMain />
         </div>

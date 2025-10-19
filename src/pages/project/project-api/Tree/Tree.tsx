@@ -16,6 +16,7 @@ const MainRowComponent = (props: RowComponentProps<{}>) => {
   } = useProjectApiContentContext()
   // console.log(props)
 
+  // TODO: 这里还需要在自动 定位到 tab 的横向滚动条那里
   const handleClickRow = () => {
     updateSelectedIds(String(index))
     addTabWithCaseCheck(
@@ -67,7 +68,6 @@ const Tree = (props: { filterValue?: string }) => {
 
   return (
     <List
-      // listRef={listRef}
       listRef={reactWindowSetList}
       rowComponent={MainRowComponent}
       rowCount={lorem.length}

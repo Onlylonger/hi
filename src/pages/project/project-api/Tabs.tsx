@@ -36,7 +36,7 @@ const Tabs = () => {
   }
 
   return (
-    <div className="flex overflow-x-auto">
+    <div className="flex w-full overflow-x-auto">
       {tabsList.map((tab) => (
         <Button
           variant={activeTabId === tab.id ? 'outline' : 'ghost'}

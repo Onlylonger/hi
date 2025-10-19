@@ -11,7 +11,12 @@ export const Layout = (props: {
   const { headerLeft, headerRight, sidebar, content, classNames } = props
 
   return (
-    <div className={clsx('flex h-svh flex-col bg-neutral-50', classNames)}>
+    <div
+      className={clsx(
+        'flex h-svh flex-col overflow-hidden bg-neutral-50',
+        classNames,
+      )}
+    >
       <div className="flex h-12 shrink-0 justify-between pl-2">
         <div className="flex items-center gap-1">{headerLeft}</div>
         <div className="flex items-center gap-1">{headerRight}</div>
