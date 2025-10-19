@@ -1,6 +1,5 @@
 import { List, useDynamicRowHeight, type RowComponentProps } from 'react-window'
 import { useLorem } from './useLorem'
-import { useMemo } from 'react'
 import { useProjectApiContentContext } from '../ProjectApiContentContext'
 import clsx from 'clsx'
 import { createTab } from './const'
@@ -8,12 +7,16 @@ import { createTab } from './const'
 const MainRowComponent = (props: RowComponentProps<{}>) => {
   const { style, index, lorem } = props
 
-  const { selectedIds, updateSelectedIds, addTabWithCaseCheck } =
-    useProjectApiContentContext()
+  const {
+    selectedIds,
+    updateSelectedIds,
+    addTabWithCaseCheck,
+    updateTab,
+    getMatchAsideTab,
+  } = useProjectApiContentContext()
   // console.log(props)
 
-  // 双击前，会执行2次单击，然后是双击回调函数。我们需要确认如果之前已经打开的tab是固定的话，就不需要再改动了。
-  const handleClickRow = (fixed = false) => {
+  const handleClickRow = () => {
     updateSelectedIds(String(index))
     addTabWithCaseCheck(
       createTab({
@@ -21,9 +24,19 @@ const MainRowComponent = (props: RowComponentProps<{}>) => {
         asideMeta: {
           id: String(index),
         },
-        fixed,
+        fixed: false,
       }),
     )
+  }
+
+  const handleDoubleClickRow = () => {
+    const matchTab = getMatchAsideTab(String(index))
+    if (matchTab) {
+      updateTab(matchTab.id, {
+        ...matchTab,
+        fixed: true,
+      })
+    }
   }
 
   return (
@@ -34,7 +47,7 @@ const MainRowComponent = (props: RowComponentProps<{}>) => {
         'cursor-pointer hover:bg-neutral-100',
       )}
       onClick={() => handleClickRow()}
-      onDoubleClick={() => handleClickRow(true)}
+      onDoubleClick={() => handleDoubleClickRow()}
     >
       Row
     </div>
@@ -44,11 +57,9 @@ const MainRowComponent = (props: RowComponentProps<{}>) => {
 const Tree = (props: { filterValue?: string }) => {
   const { filterValue } = props
 
-  const lorem = useLorem(filterValue)
+  const { reactWindowSetList } = useProjectApiContentContext()
 
-  const oper = useMemo(() => {
-    return {}
-  }, [])
+  const lorem = useLorem(filterValue)
 
   const rowHeight = useDynamicRowHeight({
     defaultRowHeight: 50,
@@ -56,6 +67,8 @@ const Tree = (props: { filterValue?: string }) => {
 
   return (
     <List
+      // listRef={listRef}
+      listRef={reactWindowSetList}
       rowComponent={MainRowComponent}
       rowCount={lorem.length}
       rowHeight={rowHeight}

@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { createContext, useContext, useMemo, useState } from 'react'
 import type { createTab } from './Tree/const'
+import { useListCallbackRef, type ListImperativeAPI } from 'react-window'
 
 export type TabItem = ReturnType<typeof createTab>
 
@@ -15,6 +16,10 @@ type ContextState = {
   getMatchAsideTab: (asideId?: string) => TabItem | undefined
   updateTab: (id: string, item: TabItem) => void
   removeTab: (id: string) => void
+  reactWindowList: ListImperativeAPI | null
+  reactWindowSetList: React.Dispatch<
+    React.SetStateAction<ListImperativeAPI | null>
+  >
 }
 
 const ProjectApiContentContext = createContext<ContextState | null>(null)
@@ -28,11 +33,15 @@ export const ProjectApiContentContextProvider: React.FC<
   const [tabsList, setTabsList] = useState<ContextState['tabsList']>([])
   const [activeTabId, setActiveTabId] = useState<string | null>(null)
 
+  const [reactWindowList, reactWindowSetList] = useListCallbackRef(null)
+
   const contextValue = useMemo(() => {
     const tmp: ContextState = {
       selectedIds,
       activeTabId,
       tabsList,
+      reactWindowList,
+      reactWindowSetList,
       updateSelectedIds(index) {
         const strIndex = String(index)
         if (selectedIds.includes(strIndex)) return
@@ -62,10 +71,6 @@ export const ProjectApiContentContextProvider: React.FC<
           tmp.addTab(item)
         } else {
           tmp.updateActiveTabId(matchAsideItem.id)
-          tmp.updateTab(matchAsideItem.id, {
-            ...matchAsideItem,
-            fixed: matchAsideItem.fixed ? matchAsideItem.fixed : item.fixed,
-          })
         }
       },
       updateTab(id: string, item: any) {
@@ -96,7 +101,14 @@ export const ProjectApiContentContextProvider: React.FC<
     }
 
     return tmp
-  }, [selectedIds, activeTabId, multi, tabsList])
+  }, [
+    selectedIds,
+    activeTabId,
+    multi,
+    tabsList,
+    reactWindowList,
+    reactWindowSetList,
+  ])
 
   return (
     <ProjectApiContentContext.Provider value={contextValue}>

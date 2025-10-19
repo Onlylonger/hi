@@ -16,7 +16,7 @@ export const ProjectApiContentAside = () => {
 
   return (
     <div
-      className="relative h-full min-h-0 shrink-0 overflow-hidden"
+      className="relative h-full shrink-0 overflow-hidden"
       style={{ width: `${sideWidth}px` }}
     >
       <div className="flex h-full flex-col px-2 py-1">

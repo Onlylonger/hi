@@ -27,13 +27,11 @@ const ProjectContent = () => {
       {menuList.map((menu) => {
         const Comp = ProjectMenuTypeMapComp[menu.key]
         return (
-          <div key={menu.key}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Activity mode={current === menu.key ? 'visible' : 'hidden'}>
-                <Comp />
-              </Activity>
-            </Suspense>
-          </div>
+          <Suspense fallback={<div>Loading...</div>} key={menu.key}>
+            <Activity mode={current === menu.key ? 'visible' : 'hidden'}>
+              <Comp />
+            </Activity>
+          </Suspense>
         )
       })}
     </>
