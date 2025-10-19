@@ -14,7 +14,7 @@ const MainRowComponent = (props: RowComponentProps<{}>) => {
 
   // 双击前，会执行2次单击，然后是双击回调函数。我们需要确认如果之前已经打开的tab是固定的话，就不需要再改动了。
   const handleClickRow = (fixed = false) => {
-    updateSelectedIds(index)
+    updateSelectedIds(String(index))
     addTabWithCaseCheck(
       createTab({
         label: 'ceshi' + index,

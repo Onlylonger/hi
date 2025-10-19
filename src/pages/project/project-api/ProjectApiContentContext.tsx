@@ -2,13 +2,13 @@ import { cloneDeep } from 'lodash-es'
 import { createContext, useContext, useMemo, useState } from 'react'
 import type { createTab } from './Tree/const'
 
-type TabItem = ReturnType<typeof createTab>
+export type TabItem = ReturnType<typeof createTab>
 
 type ContextState = {
   selectedIds: string[]
   activeTabId: string | null
   tabsList: TabItem[]
-  updateSelectedIds: (index: number) => void
+  updateSelectedIds: (index: string) => void
   addTab: (item: TabItem) => void
   addTabWithCaseCheck: (item: TabItem) => void
   updateActiveTabId: (id: string) => void
@@ -84,15 +84,15 @@ export const ProjectApiContentContextProvider: React.FC<
           // tmp.updateActiveTabId(id)
         }
       },
-      addNewModule() {
-        // TODO: 新增模块
-      },
-      addFolder() {
-        // TODO: 新增目录
-      },
-      addEndpoint() {
-        // TODO: 新增接口
-      },
+      // addNewModule() {
+      //   // TODO: 新增模块
+      // },
+      // addFolder() {
+      //   // TODO: 新增目录
+      // },
+      // addEndpoint() {
+      //   // TODO: 新增接口
+      // },
     }
 
     return tmp

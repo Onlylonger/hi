@@ -1,7 +1,7 @@
-import { Input } from '@shilong/react'
 import { ProjectApiContentAside } from './ProjectApiContentAside'
 import { ProjectApiContentContextProvider } from './ProjectApiContentContext'
 import { Tabs } from './Tabs'
+import { ProjectApiContentMain } from './ProjectApiContentMain'
 
 const ProjectApiContent = () => {
   return (
@@ -10,10 +10,7 @@ const ProjectApiContent = () => {
         <ProjectApiContentAside />
         <div>
           <Tabs />
-          <div>
-            API Contentcc2
-            <Input />
-          </div>
+          <ProjectApiContentMain />
         </div>
       </ProjectApiContentContextProvider>
     </div>
